@@ -1,7 +1,6 @@
-// Import MySQL connection.
-var connection = require("../config/connection.js");
-
-// * Create the methods that will execute the necessary MySQL commands in the controllers. 
+// Dependencies
+// =============================================================
+var Burgers = require("../models/burger.js");
 
 // Helper function for SQL syntax.
 

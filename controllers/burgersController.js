@@ -3,7 +3,57 @@ var express = require("express");
 var router = express.Router();
 
 // Import the model (burger.js) to use its database functions.
-var burger = require("../models/burger.js");
+// var burger = require("../models/burger.js");
+
+// From here
+var orm = require("../config/orm.js");
+var connection = require("../config/connection.js");
+var orm = require("../config/orm.js");
+
+var burger = {
+  all: function (tableInput, cb) {
+    var queryString = "SELECT * FROM " + tableInput + ";";
+    connection.query(queryString, function (err, result) {
+      if (err) {
+        return res.status(500).end();
+      }
+      cb(result);
+    });
+  },
+  
+  create: function (table, cols, vals, cb) {
+    // INSERT INTO burgers(name) VALUES("Big Mac")
+    var queryString = "INSERT INTO " + table;
+
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
+
+    console.log(queryString);
+
+    connection.query(queryString, vals, function (err, result) {
+      if (err) {
+        return res.status(500).end();
+      }
+
+      cb(result);
+    });
+  },
+
+  update: function (objColVals, condition, cb) {
+    orm.update("burgers", objColVals, condition, function (res) {
+      cb(res);
+    });
+  },
+  delete: function (condition, cb) {
+    orm.delete("burgers", condition, function (res) {
+      cb(res);
+    });
+  }
+};
 
 // Use Handlebars to render the main index.html page with the burgers in it.
 router.get("/", function (req, res) {
