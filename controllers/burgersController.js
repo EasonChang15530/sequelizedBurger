@@ -3,75 +3,26 @@ var express = require("express");
 var router = express.Router();
 
 // Import the model (burger.js) to use its database functions.
-// var burger = require("../models/burger.js");
+var Burger = require("../models/burger.js");
 
-// From here
-var orm = require("../config/orm.js");
-var connection = require("../config/connection.js");
-var orm = require("../config/orm.js");
-
-var burger = {
-  all: function (tableInput, cb) {
-    var queryString = "SELECT * FROM " + tableInput + ";";
-    connection.query(queryString, function (err, result) {
-      if (err) {
-        return res.status(500).end();
-      }
-      cb(result);
-    });
-  },
-  
-  create: function (table, cols, vals, cb) {
-    // INSERT INTO burgers(name) VALUES("Big Mac")
-    var queryString = "INSERT INTO " + table;
-
-    queryString += " (";
-    queryString += cols.toString();
-    queryString += ") ";
-    queryString += "VALUES (";
-    queryString += printQuestionMarks(vals.length);
-    queryString += ") ";
-
-    console.log(queryString);
-
-    connection.query(queryString, vals, function (err, result) {
-      if (err) {
-        return res.status(500).end();
-      }
-
-      cb(result);
-    });
-  },
-
-  update: function (objColVals, condition, cb) {
-    orm.update("burgers", objColVals, condition, function (res) {
-      cb(res);
-    });
-  },
-  delete: function (condition, cb) {
-    orm.delete("burgers", condition, function (res) {
-      cb(res);
-    });
-  }
-};
-
+var db = require("../models");
+​
 // Use Handlebars to render the main index.html page with the burgers in it.
 router.get("/", function (req, res) {
-  burger.all(function (data) {
-    res.render("index", { burgers: data });
+  db.Burger.findAll({}).then(function(data) {
+     res.render("index", {burgers: data}) 
   });
 });
-
+​
 router.post("/api/burgers", function (req, res) {
-  burger.create([
-    "name", "devoured"
-  ], [
-    req.body.name, req.body.devoured
-  ], function (result) {
-    // Send back the ID of the new quote
-    res.json({ id: result.insertId });
-    console.log({ id: result.insertId });
-  });
+  console.log(req.body);
+  db.Burger.create({
+    name: req.body.name,
+    devoured: req.body.devoured
+  }).then(function(result) {
+    console.log(result);
+    res.json(result);
+  })
 });
 
 router.put("/api/burgers/:id", function (req, res) {
