@@ -11,7 +11,7 @@ var PORT = process.env.PORT || 8080;
 // Serve static content from the "public" directory in this application directory.
 app.use(express.static("public"));
 
-// Parse application body as JSON
+// Set up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -25,9 +25,9 @@ app.set("view engine", "handlebars");
 
 var db = require("./models");
 db.sequelize.sync({ force: true }).then(function () {
-  // Start our server so that it can begin listening to client requests.
+  // Begin listening to client requests.
   app.listen(PORT, function () {
-    // Log (server-side) when our server has started
+    // Log (server-side) when server has started
     console.log("Server listening on: http://localhost:" + PORT);
   });
 });

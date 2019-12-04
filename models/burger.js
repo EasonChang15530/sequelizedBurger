@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     devoured: DataTypes.BOOLEAN
   });
-​
+
   return Burger;
 };
 // CREATE TABLE burgers(
