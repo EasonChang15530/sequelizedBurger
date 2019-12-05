@@ -28,7 +28,7 @@ require("dotenv").config();
 
 // Creates mySQL connection using Sequelize.
 var Sequelize = require("sequelize");
-var sequelize = new Sequelize("sequelize_burgers", "root", "process.env.mysql_pass", {
+var sequelize = new Sequelize("sequelize_burgers", "root", "process.env.MYSQL_PASSWORD", {
   host: "localhost",
   port: 3306,
   dialect: "mysql",
@@ -37,7 +37,8 @@ var sequelize = new Sequelize("sequelize_burgers", "root", "process.env.mysql_pa
     min: 0,
     idle: 10000
   }
-});
+})
+
 
 // Export the connection for other files to use
 module.exports = sequelize;
