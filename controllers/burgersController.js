@@ -34,16 +34,21 @@ router.delete("/api/burgers/:id", function (req, res) {
 });
 
 // PUT route for updating burger
-router.put("/api/posts", function (req, res) {
-  db.Burger.update(req.body,
-    {
-      where: {
-        id: req.body.id
-      }
-    })
-    .then(function (dbBurger) {
-      res.json(dbBurger);
-    });
+router.put("/api/burgers/:id", function (req, res) {
+  // Update takes in an object describing the properties we want to update, and
+  // we use where to describe which objects we want to update
+  db.Burger.update({
+    devoured: req.body.devoured
+  }, {
+    where: {
+      // Note: Be careful of the difference between req.body. and req.params.
+      id: req.params.id
+    }
+  }).then(function (dbBurger) {
+    res.json(dbBurger);
+  });
 });
+
 // Export routes for server.js to use.
 module.exports = router;
+
