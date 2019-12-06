@@ -12,6 +12,16 @@ if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
+  // var sequelize = new Sequelize("sequelize_burgers", "root", "process.env.MYSQL_PASSWORD", {
+  //   host: "localhost",
+  //   port: 3306,
+  //   dialect: "mysql",
+  //   pool: {
+  //     max: 5,
+  //     min: 0,
+  //     idle: 10000
+  //   }
+  // })
 }
 
 fs
