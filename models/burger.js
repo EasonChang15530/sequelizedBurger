@@ -4,11 +4,15 @@ module.exports = function(sequelize, DataTypes) {
     devoured: DataTypes.BOOLEAN
   });
 
+  Burger.associate = function(models) {
+    // A Burger should belong to a Customer
+    Burger.belongsTo(models.Customer, {
+      foreignKey: {
+        allowNull: true
+      }
+    });
+  };
+
   return Burger;
 };
-// CREATE TABLE burgers(
-// 	id int AUTO_INCREMENT NOT NULL,
-// 	name VARCHAR(255) NOT NULL,
-// 	devoured BOOLEAN DEFAULT false,
-// 	PRIMARY KEY (id)
-// );
+

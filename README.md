@@ -10,7 +10,7 @@
 
 ## App description
 
-* This app is an upgraded version of burger-MySQL-Express-Handlebars. It still supports Create/Read/Update/Delete (CRUD), and uses a more concise Sequelize instead of MySQL connection. At the same time, it also uses ass to match the bur and com.
+* This app is an upgraded version of burger-MySQL-Express-Handlebars. It still supports Create/Read/Update/Delete (CRUD), and uses a more concise Sequelize instead of MySQL connection.
 
 * At the same time, it uses .associate to relate Burgers with Consumers.
 

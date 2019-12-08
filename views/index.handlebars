@@ -7,8 +7,8 @@
   {{!-- {{> burgers/burger-block devoured=true}} --}}
   <li>
     {{name}}
-
-    <button class="change-devoured" data-id="{{id}}" data-ifdevoured="{{devoured}}">
+    <input type="text" placeholder="Customer name?">
+    <button type="submit" class="change-devoured" data-id="{{id}}" data-ifdevoured="{{devoured}}">
       {{!-- {{#unless devoured}}DEVOUR!{{/unless}} --}}
       DEVOUR!
     </button>
@@ -27,7 +27,8 @@
   {{!-- {{> burgers/burger-block devoured=false}} --}}
   <li>
     {{name}}
-
+    {{!-- Note: How to grab customer names here--}}
+    (Eaten by {{Customer.name}})
     <button class="delete-burger" data-id="{{this.id}}">DELETE!</button>
   </li>
 
@@ -96,9 +97,9 @@
 
   $(".change-devoured").on("click", function (event) {
     event.preventDefault();
-
+    var customerName = $(this).parent().find("input").val();
     var id = $(this).data("id");
-    var devouredState = { devoured: 1, }
+    var devouredState = { devoured: 1, customerName}
 
     // Send the PUT request.
     $.ajax("/api/burgers/" + id, {
