@@ -3,13 +3,13 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING
   });
 
-  // Customer.associate = function(models) {
-  //   // Associating Customer with Burgers
-  //   // When an Customer is deleted, also delete any associated Burgers
-  //   Customer.hasMany(models.Burger, {
-  //     onDelete: "cascade"
-  //   });
-  // };
+  Customer.associate = function(models) {
+    // Associating Customer with Burgers
+    // When an Customer is deleted, also delete any associated Burgers
+    Customer.hasMany(models.Burger, {
+      onDelete: "cascade"
+    });
+  };
 
   return Customer;
 };
