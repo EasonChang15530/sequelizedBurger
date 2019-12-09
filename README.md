@@ -6,7 +6,7 @@
 
 ## Main View
 
-* ![tier1Screenshot](public/img/tier1Screenshot.jpg)
+* ![mainView](public/img/mainView.jpg)
 
 ## App description
 
